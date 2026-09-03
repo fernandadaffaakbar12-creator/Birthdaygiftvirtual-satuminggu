@@ -175,7 +175,7 @@
         const pinPopupClose = document.getElementById('pin-popup-close');
 
         // DEFAULT PIN: Silakan ubah angka ini jika ingin PIN lain
-        const SECRET_PIN = "2104";
+        const SECRET_PIN = "0429";
 
         let pinAttempt = 0;
         let popupTimeout = null;
@@ -556,6 +556,12 @@ async function mulaiKetikanBerurutan(slideTarget) {
             await ketikTeks(el, teksAsli);
             await new Promise(resolve => setTimeout(resolve, 400));
         }
+    }
+
+    // Tampilkan pulsating heart dengan fade in setelah semua teks selesai diketik
+    const heart = slideTarget.querySelector('.pulsating-heart');
+    if (heart) {
+        heart.classList.add('heart-visible');
     }
 }
 
