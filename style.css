@@ -1025,16 +1025,30 @@ body {
     display: none;
 }
 
-.song-title {
-    font-size: 0.8rem;
-    color: #ffffff;
-    margin: 0 0 3px 0;
-    font-weight: 600;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    text-align: center;
+.song-title-marquee {
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+}
+
+.song-title-text {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: #ffffff;
+    font-weight: 600;
+    animation: marquee-scroll 12s linear infinite;
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .artist-name {
@@ -1150,8 +1164,8 @@ body {
         height: 40px;
     }
 
-    .song-title {
-        font-size: 0.9rem;
+    .song-title-text {
+        font-size: 0.8rem;
     }
 }
 

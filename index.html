@@ -20,7 +20,10 @@
         <p class="now-playing-top">Now Playing</p>
         <img src="img/so.jpeg" alt="Album Cover" class="album-cover">
         <div class="music-info">
-            <p class="song-title">Shape Of My Heart</p>
+            <div class="song-title-marquee">
+                <span class="song-title-text">Shape Of My Heart &nbsp;&nbsp;&nbsp;&nbsp;Shape Of My
+                    Heart&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
             <p class="artist-name">Backstreet Boys</p>
         </div>
         <button id="play-pause-btn" class="play-pause-btn" onclick="toggleMusic()">
@@ -57,7 +60,7 @@
             <h2>Enter PIN</h2>
             <p style="margin-bottom: 2px;">passwordnya tanggal + tahun jadian kita yaa</p>
             <p style="margin-top: 0;">(Awas aja kalau lupa)</p>
-            <input type="password" id="pin-input" maxlength="4" placeholder="****">
+            <input type="password" id="pin-input" maxlength="4" placeholder="****" inputmode="numeric" pattern="[0-9]*">
         </div>
     </div>
 
