@@ -863,6 +863,22 @@ body {
     animation: float-polaroid-alt 6s ease-in-out infinite;
 }
 
+.polaroid:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.polaroid:nth-child(2) {
+    animation-delay: 0.8s;
+}
+
+.polaroid:nth-child(3) {
+    animation-delay: 1.6s;
+}
+
+.polaroid:nth-child(4) {
+    animation-delay: 2.4s;
+}
+
 .polaroid img {
     width: 100%;
     aspect-ratio: 3 / 4;

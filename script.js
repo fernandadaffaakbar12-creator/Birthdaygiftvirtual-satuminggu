@@ -450,7 +450,7 @@
         const pinPopupClose = document.getElementById('pin-popup-close');
 
         // DEFAULT PIN: Silakan ubah angka ini jika ingin PIN lain
-        const SECRET_PIN = "1718";
+        const SECRET_PIN = "1821";
 
         let pinAttempt = 0;
         let popupTimeout = null;
@@ -715,6 +715,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 else if (this.classList.contains('polaroid')) {
                     modalImg.src = this.querySelector('img').src;
                     modalImg.style.aspectRatio = "3 / 4";
+                    const polaroidCaption = this.querySelector('.caption');
+                    if (modalCaption && polaroidCaption) {
+                        modalCaption.innerText = polaroidCaption.innerText;
+                    }
                 }
                 // D. JIKA YANG DIKLIK ADALAH GALERI CINTA
                 else {
