@@ -620,12 +620,25 @@ body {
 }
 
 #modal-img {
-    max-width: 90vw;
+    height: 72vh;
     max-height: 75vh;
+    max-width: 85vw;
+    width: auto;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
     border-radius: 15px;
     box-shadow: 0 10px 50px rgba(255, 182, 193, 0.5);
     transform: scale(0.7);
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#modal-img.modal-ratio-3-2 {
+    width: 92vw;
+    max-width: 600px;
+    height: auto;
+    max-height: 78vh;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
 }
 
 /* Desain dasar iframe (akan diubah rasionya via JS) */
@@ -716,13 +729,15 @@ body {
 }
 
 /* =========================================
-   GALERI SCROLL KE SAMPING 9:16 (Slide 4)
+   GALERI SCROLL KE SAMPING (Core Memories Of Us)
 ========================================= */
 .gallery-scroll {
+    position: relative;
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 18px;
     overflow-x: hidden;
-    padding: 20px 10px;
+    padding: 20px 12px;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     /* Firefox */
@@ -794,15 +809,29 @@ body {
 .scratch-card {
     position: relative;
     flex: 0 0 auto;
-    width: 220px;
+    width: 240px;
     aspect-ratio: 9 / 16;
-    border-radius: 10px;
+    border-radius: 12px;
     border: 2px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55) !important;
     cursor: pointer;
     scroll-snap-align: center;
     animation: float-photo 4s ease-in-out infinite;
     overflow: hidden;
+}
+
+/* Foto 1-4: Rasio 3:2 dengan ukuran lebar agar tetap tampak besar */
+.scratch-card.ratio-3-2,
+.scratch-card:nth-child(-n+4) {
+    width: 390px;
+    aspect-ratio: 3 / 2;
+}
+
+/* Foto 5-6: Rasio 9:16 */
+.scratch-card.ratio-9-16,
+.scratch-card:nth-child(n+5) {
+    width: 245px;
+    aspect-ratio: 9 / 16;
 }
 
 .scratch-card:nth-child(even) {
@@ -835,68 +864,356 @@ body {
 }
 
 /* =========================================
-   FOTO PRIBADI NEON (Slide 5)
+   VIDEO MEMORIES SECTION (Pengganti Polaroid)
 ========================================= */
-.polaroid-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* Membuat susunan 2 ke samping */
-    gap: 20px;
+.video-memories-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
     margin: 20px auto 0 auto;
-    /* Memastikan posisinya tepat di tengah */
-    max-width: 450px;
-    /* KUNCI: Membatasi lebar maksimal agar fotonya tidak terlalu besar */
-}
-
-.polaroid {
-    background: #fff;
-    padding: 10px 10px 20px 10px;
-    cursor: pointer;
-    transform: rotate(-2deg);
-    /* Efek Neon Putih */
-    box-shadow: 0 0 10px #ffffff, 0 0 25px rgba(255, 255, 255, 0.8) !important;
-    animation: float-polaroid 5s ease-in-out infinite;
-}
-
-.polaroid:nth-child(even) {
-    transform: rotate(3deg);
-    animation: float-polaroid-alt 6s ease-in-out infinite;
-}
-
-.polaroid:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.polaroid:nth-child(2) {
-    animation-delay: 0.8s;
-}
-
-.polaroid:nth-child(3) {
-    animation-delay: 1.6s;
-}
-
-.polaroid:nth-child(4) {
-    animation-delay: 2.4s;
-}
-
-.polaroid img {
+    max-width: 560px;
     width: 100%;
-    aspect-ratio: 3 / 4;
+}
+
+.video-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 182, 193, 0.35);
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.55),
+        0 0 22px rgba(255, 182, 193, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.video-card:hover {
+    border-color: rgba(255, 182, 193, 0.75);
+    box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.65),
+        0 0 30px rgba(255, 182, 193, 0.38);
+    transform: translateY(-4px);
+}
+
+.video-card.is-unmuted {
+    border-color: #ffb6c1;
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.65),
+        0 0 28px rgba(255, 182, 193, 0.55);
+}
+
+.video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #050508;
+    cursor: pointer;
+}
+
+.memory-video {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-.polaroid .caption {
-    color: #000000;
-    font-family: 'Caveat', cursive;
-    font-size: 1.5rem;
-    margin-top: 10px;
+/* Indikator Play di tengah saat di-pause */
+.video-center-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(15, 10, 28, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 182, 193, 0.6);
+    color: #ffb6c1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 3;
+}
+
+.video-center-indicator svg {
+    width: 26px;
+    height: 26px;
+    margin-left: 2px;
+}
+
+.video-card.is-paused .video-center-indicator {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Bar Kontrol Video di bagian bawah */
+.video-controls-bar {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(15, 10, 28, 0.82), rgba(28, 16, 42, 0.78));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 182, 193, 0.28);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    z-index: 4;
+}
+
+.video-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    border-radius: 10px;
+    height: 34px;
+    min-width: 34px;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+.video-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.video-btn:hover {
+    background: rgba(255, 182, 193, 0.25);
+    border-color: rgba(255, 182, 193, 0.65);
+    color: #ffb6c1;
+    transform: scale(1.05);
+}
+
+.video-btn:active {
+    transform: scale(0.95);
+}
+
+/* Tombol Unmute / Mute Spesial */
+.btn-mute-toggle {
+    padding: 0 11px;
+    border-radius: 20px;
+    background: rgba(255, 182, 193, 0.16);
+    border-color: rgba(255, 182, 193, 0.45);
+    color: #ffb6c1;
+}
+
+.btn-mute-toggle:not(.is-muted) {
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(255, 126, 179, 0.55);
+}
+
+.mute-label {
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* Progress bar video */
+.video-progress-wrap {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.video-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ffb6c1, #ff7eb3);
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+    transition: width 0.1s linear;
+}
+
+.video-section-hint {
+    font-size: 0.82rem;
+    color: rgba(255, 182, 193, 0.85);
+    margin-top: 18px;
     margin-bottom: 0;
+    line-height: 1.4;
 }
 
-.polaroid:hover {
-    /* Efek Neon Baby Pink saat disorot */
-    box-shadow: 0 0 15px #ffb6c1, 0 0 35px #ffb6c1 !important;
-    filter: brightness(1.1);
+/* =========================================
+   MODE FULL SCREEN VIDEO (Saat Horizontal)
+========================================= */
+.video-card.is-fullscreen {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #000000 !important;
+    z-index: 99998 !important;
+    transform: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-card.is-fullscreen .video-frame {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+}
+
+.video-card.is-fullscreen .memory-video {
+    object-fit: contain;
+    background: #000;
+}
+
+.video-card.is-fullscreen .video-controls-bar {
+    left: 24px;
+    right: 24px;
+    bottom: 20px;
+    padding: 10px 16px;
+}
+
+/* =========================================
+   MODAL PERINGATAN PUTAR HP KE HORIZONTAL
+========================================= */
+.rotate-phone-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.rotate-phone-modal.show-rotate-modal {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.rotate-phone-box {
+    background: linear-gradient(145deg, rgba(30, 15, 50, 0.96), rgba(14, 9, 30, 0.98));
+    border: 1.5px solid rgba(255, 182, 193, 0.35);
+    border-radius: 24px;
+    padding: 30px 26px 26px;
+    max-width: 340px;
+    width: 90%;
+    text-align: center;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(255, 182, 193, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: scale(0.8) translateY(15px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rotate-phone-modal.show-rotate-modal .rotate-phone-box {
+    transform: scale(1) translateY(0);
+}
+
+.rotate-phone-icon-wrap {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 182, 193, 0.12);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    box-shadow: 0 0 25px rgba(255, 182, 193, 0.25);
+}
+
+.rotate-phone-svg {
+    width: 38px;
+    height: 38px;
+    color: #ffb6c1;
+    animation: rotatePhoneAnim 2.2s ease-in-out infinite;
+}
+
+.rotate-arrow-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    font-size: 1.1rem;
+}
+
+@keyframes rotatePhoneAnim {
+    0%, 20% {
+        transform: rotate(0deg);
+    }
+    55%, 80% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.rotate-phone-msg {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.55;
+    margin: 0 0 22px 0;
+}
+
+.rotate-phone-btn {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    color: #ffffff;
+    box-shadow: 0 4px 18px rgba(255, 117, 140, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rotate-phone-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 117, 140, 0.65);
 }
 
 /* =========================================
@@ -912,69 +1229,6 @@ body {
     50% {
         transform: translateY(-10px);
     }
-}
-
-@keyframes float-polaroid {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(-2deg);
-    }
-
-    50% {
-        transform: translateY(-12px) rotate(-2deg);
-    }
-}
-
-@keyframes float-polaroid-alt {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(3deg);
-    }
-
-    50% {
-        transform: translateY(-12px) rotate(3deg);
-    }
-}
-
-/* =========================================
-   DESAIN LAYAR FOTO MEMBESAR (LIGHTBOX)
-========================================= */
-#image-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-}
-
-#image-modal.show-modal {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-#modal-img {
-    max-width: 90vw;
-    max-height: 90vh;
-    border-radius: 15px;
-    box-shadow: 0 10px 50px rgba(255, 182, 193, 0.5);
-    transform: scale(0.7);
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-#image-modal.show-modal #modal-img {
-    transform: scale(1);
 }
 
 /* =========================================
@@ -1175,21 +1429,48 @@ body {
         font-size: 0.7rem;
     }
 
-    .polaroid-grid {
-        grid-template-columns: repeat(2, 1fr);
-        /* Memaksa agar tetap 2 ke samping di HP */
-        gap: 10px;
-        /* Jarak antar foto sedikit dirapatkan */
+    .gallery-scroll {
+        margin-left: -12px;
+        margin-right: -12px;
+        padding: 20px 14px;
+        gap: 14px;
     }
 
-    .polaroid {
-        padding: 8px 8px 15px 8px;
-        /* Bingkai putih polaroid sedikit dikecilkan */
+    .scratch-card.ratio-3-2,
+    .scratch-card:nth-child(-n+4) {
+        width: 86vw;
+        max-width: 360px;
+        aspect-ratio: 3 / 2;
     }
 
-    .polaroid .caption {
-        font-size: 1.1rem;
-        /* Ukuran tulisan di bawah foto dikecilkan agar muat dan rapi */
+    .scratch-card.ratio-9-16,
+    .scratch-card:nth-child(n+5) {
+        width: 72vw;
+        max-width: 265px;
+        aspect-ratio: 9 / 16;
+    }
+
+    .video-memories-grid {
+        gap: 20px;
+    }
+
+    .video-card {
+        padding: 9px;
+        border-radius: 16px;
+    }
+
+    .video-controls-bar {
+        left: 7px;
+        right: 7px;
+        bottom: 7px;
+        padding: 5px 8px;
+        gap: 6px;
+    }
+
+    .video-btn {
+        height: 30px;
+        min-width: 30px;
+        font-size: 0.7rem;
     }
 
 
