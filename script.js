@@ -450,7 +450,7 @@
         const pinPopupClose = document.getElementById('pin-popup-close');
 
         // DEFAULT PIN: Silakan ubah angka ini jika ingin PIN lain
-        const SECRET_PIN = "0910";
+        const SECRET_PIN = "1106";
 
         let pinAttempt = 0;
         let popupTimeout = null;
@@ -665,7 +665,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Reset layar setiap kali diklik
                 if (modalCaption) modalCaption.innerText = "";
                 modalImg.style.display = 'block'; // Tampilkan foto sebagai default
-                modalImg.classList.remove('modal-ratio-3-2');
+                modalImg.classList.remove('modal-ratio-3-2', 'modal-ratio-3-4');
                 modalIframe.style.display = 'none'; // Sembunyikan musik sebagai default
                 modalIframe.src = ""; // Kosongkan lagu sebelumnya
 
@@ -721,7 +721,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 // C. JIKA YANG DIKLIK ADALAH POLAROID
                 else if (this.classList.contains('polaroid')) {
                     modalImg.src = this.querySelector('img').src;
+                    modalImg.classList.add('modal-ratio-3-4');
                     modalImg.style.aspectRatio = "3 / 4";
+                    modalImg.style.objectFit = "cover";
                     const polaroidCaption = this.querySelector('.caption');
                     if (modalCaption && polaroidCaption) {
                         modalCaption.innerText = polaroidCaption.innerText;
@@ -731,13 +733,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 else if (this.classList.contains('scratch-card')) {
                     const imgEl = this.querySelector('img');
                     if (imgEl) modalImg.src = imgEl.src;
-
-                    if (this.classList.contains('ratio-3-2')) {
-                        modalImg.classList.add('modal-ratio-3-2');
-                        modalImg.style.aspectRatio = "3 / 2";
-                    } else {
-                        modalImg.style.aspectRatio = "9 / 16";
-                    }
+                    modalImg.style.aspectRatio = "9 / 16";
                     modalImg.style.objectFit = "cover";
                 }
                 else {
@@ -1097,14 +1093,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let drawMoveCount = 0;
 
         setTimeout(() => {
-            // Foto 1-4 (index 0-3) berasio 3:2, Foto 5-6 (index 4-5) berasio 9:16
-            if (index < 4) {
-                canvas.width = 360;
-                canvas.height = 240;
-            } else {
-                canvas.width = 240;
-                canvas.height = Math.round(240 * 16 / 9);
-            }
+            canvas.width = 240;
+            canvas.height = Math.round(240 * 16 / 9);
 
             ctx.fillStyle = '#0a0a0a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1609,7 +1599,7 @@ function syncBgMusicWithVideos() {
             bgMusicPausedByVideo = false;
             bgMusic.play().then(() => {
                 updateMusicPopupIcons(true);
-            }).catch(() => {});
+            }).catch(() => { });
         }
     }
 }
@@ -1701,7 +1691,7 @@ function masukFullscreenVideo(card) {
 
     // Coba panggil Fullscreen API browser jika didukung
     if (card.requestFullscreen) {
-        card.requestFullscreen().catch(() => {});
+        card.requestFullscreen().catch(() => { });
     } else if (card.webkitRequestFullscreen) {
         card.webkitRequestFullscreen();
     }
@@ -1718,7 +1708,7 @@ function keluarFullscreenVideo(card) {
 
     if (document.fullscreenElement || document.webkitFullscreenElement) {
         if (document.exitFullscreen) {
-            document.exitFullscreen().catch(() => {});
+            document.exitFullscreen().catch(() => { });
         } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
         }
@@ -1764,7 +1754,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 }
-                video.play().catch(() => {});
+                video.play().catch(() => { });
             } else {
                 video.pause();
             }
@@ -1809,7 +1799,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Pastikan video ikut terputar jika sebelumnya ter-pause
                     if (video.paused) {
-                        video.play().catch(() => {});
+                        video.play().catch(() => { });
                     }
 
                     // Matikan sementara backsound
